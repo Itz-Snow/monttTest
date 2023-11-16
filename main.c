@@ -1,5 +1,6 @@
 #define _GNU_SOURCE
 #include "monty.h"
+bus_t bus = {NULL, NULL, NULL, 0};
 /**
 * main - monty code interpreter
 * @argc: number of arguments
@@ -8,7 +9,12 @@
 */
 int main(int argc, char **argv)
 {
-	bus_t bus = {NULL, NULL, NULL, 0};
+	char *content;
+	size_t size = 0;
+	FILE *file;
+	ssize_t read_line = 1;
+	stack_t *stack = NULL;
+	unsigned int counter = 0;
 
 	if (argc != 2)
 	{
@@ -23,12 +29,6 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
-	char *content;
-	size_t size = 0;
-	FILE *file;
-	ssize_t read_line = 1;
-	stack_t *stack = NULL;
-	unsigned int counter = 0;
 
 	while (read_line > 0)
 	{
